@@ -2,19 +2,20 @@
   "name": "train-me-grader",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "./node_modules/.bin/jshint .",
     "checkStyle": "./node_modules/.bin/jscs .",
     "pretest": "npm run-script checkStyle",
     "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive -R spec -r should",
-    "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage"
+    "posttest": "rm -rf coverage && ./node_modules/.bin/istanbul check-coverage"
   },
   "author": "Daniela Meneses",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.10.0",
     "express": "^4.10.6",
+    "mongodb": "^1.4.23",
     "multer": "^0.1.6"
   },
   "devDependencies": {

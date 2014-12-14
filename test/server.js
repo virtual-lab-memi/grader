@@ -1,4 +1,4 @@
-var	trainMeApp = require('../app.js').app,
+var	trainMeApp = require('../server.js').app,
 	request = require('supertest')(trainMeApp);
 
 describe('POST /api/solutions', function() {
@@ -41,7 +41,7 @@ describe('POST /api/solutions', function() {
 			.field('problemId', 1)
 			.field('solutionId', 1)
 			.attach('solution', 'test/fixtures/solution.java')
-      .expect(200)
+      .expect(200, {message: 'Solution submitted', status: 0})
       .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);

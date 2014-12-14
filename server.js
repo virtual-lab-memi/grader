@@ -1,12 +1,13 @@
 var multer = require('multer'),
 	bodyParser = require('body-parser'),
 	express = require('express'),
-	app = exports.app = express(),
+	app = express(),
 	server;
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: './uploads/'}));
+
 app.post('/api/solutions', function(req, res) {
   var files = req.files,
     data = req.body,
@@ -25,6 +26,8 @@ server = app.listen(8888, function() {
 		port = server.address().port;
   console.log('Train Me Grader listening at http://%s:%s', host, port)
 });
+
+exports.app = app;
 
 function validateInputs(files, data) {
   if (!files.solution) {
