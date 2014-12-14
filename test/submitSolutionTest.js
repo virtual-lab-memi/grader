@@ -5,7 +5,7 @@ describe('POST /api/solutions', function() {
   it('should return 400 on request without solution file', function(done) {
     request
 			.post('/api/solutions')
-      .expect(400, '{"error":"No solution file"}')
+      .expect(400, {error:'No solution file', status: 1})
       .end(function(err, res) {
         if (err) return done(err);
         done();
@@ -16,7 +16,7 @@ describe('POST /api/solutions', function() {
     request
       .post('/api/solutions')
       .attach('solution', 'test/fixtures/solution.java')
-      .expect(400, '{"error":"No problem id"}')
+      .expect(400, {error:'No problem id', status: 1})
       .end(function(err, res) {
         if (err) return done(err);
         done();
@@ -28,7 +28,7 @@ describe('POST /api/solutions', function() {
 			.post('/api/solutions')
       .field('problemId', 1)
       .attach('solution', 'test/fixtures/solution.java')
-      .expect(400, '{"error":"No solution id"}')
+      .expect(400, {error: 'No solution id', status: 1})
       .end(function(err, res) {
         if (err) return done(err);
         done();

@@ -9,23 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: './uploads/'}));
 app.post('/api/solutions', function(req, res) {
   var files = req.files,
-    data = req.body;
-  if (!files.solution) {
-    res.status(400).send({error: 'No solution file'});
+    data = req.body,
+    invalidInputs = validateInputs(files, data);
+
+  if (invalidInputs) {
+    res.status(400).send({error: invalidInputs, status: 1});
     return;
   }
 
-  if (!data.problemId) {
-    res.status(400).send({error: 'No problem id'});
-    return;
-  }
-
-  if (!data.solutionId) {
-    res.status(400).send({error: 'No solution id'});
-    return;
-  }
-
-  res.status(200).send({message: 'Solution submitted'});
+  res.status(200).send({message: 'Solution submitted', status: 0});
 });
 
 server = app.listen(8888, function() {
@@ -33,3 +25,17 @@ server = app.listen(8888, function() {
 		port = server.address().port;
   console.log('Train Me Grader listening at http://%s:%s', host, port)
 });
+
+function validateInputs(files, data) {
+  if (!files.solution) {
+    return 'No solution file';
+  }
+
+  if (!data.problemId) {
+    return 'No problem id';
+  }
+
+  if (!data.solutionId) {
+    return 'No solution id';
+  }
+}
