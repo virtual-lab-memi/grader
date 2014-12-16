@@ -1,6 +1,6 @@
 var db = require('../../lib/db/db-connector.js'),
   should = require('should');
-
+/*
 describe('DB Connector', function() {
   it('should remove, insert, and find data over a collection', function(done) {
     db.problems.remove({});
@@ -12,4 +12,4 @@ describe('DB Connector', function() {
     });
     done();
   });
-});
+});*/
