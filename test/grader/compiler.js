@@ -25,7 +25,6 @@ describe('Compiler', function() {
       };
 
     compiler.compile(data, done);
-    revertDB();
   });
 
   it('should continue to execution if compilation is successful', function(done) {
@@ -37,7 +36,13 @@ describe('Compiler', function() {
           }
         }
       },
+      runnerMock = {
+        run: function(a, b, done) {
+          done && done();
+        }
+      },
       revertDB = compiler.__set__('db', dbMock),
+      revertRunner = compiler.__set__('runner', runnerMock),
       data = {
         solution: {
           _id: 1,
@@ -47,6 +52,5 @@ describe('Compiler', function() {
       };
 
     compiler.compile(data, done);
-    revertDB();
   });
 });
