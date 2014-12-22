@@ -18,7 +18,7 @@ app.post('/api/solutions', function(req, res) {
     res.status(400).send({error: invalidInputs, status: 1});
     return;
   }
-  console.log("asdasdadaaa");
+
   jobManager.attachJob(data.problemId, data.solutionId, files.solution.path);
 
   res.status(200).send({message: 'Solution submitted', status: 0});
