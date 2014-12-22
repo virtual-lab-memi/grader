@@ -1,4 +1,5 @@
 {
 	"preset" : "airbnb",
-	"excludeFiles": ["node_modules/**", "coverage/**"]
+	"excludeFiles": ["node_modules/**", "coverage/**"],
+  "disallowQuotedKeysInObjects": true
 }
