@@ -3,6 +3,7 @@ var multer = require('multer'),
 	express = require('express'),
   jobManager = require('./lib/job-manager.js'),
 	app = express(),
+  logger = require('./lib/logger.js').Logger,
 	server;
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -27,7 +28,7 @@ app.post('/api/solutions', function(req, res) {
 server = app.listen(8888, function() {
   var	host = server.address().address,
 		port = server.address().port;
-  console.log('Train Me Grader listening at http://%s:%s', host, port)
+  logger.info('Train Me Grader listening at http://%s:%s', host, port)
 });
 
 exports.app = app;

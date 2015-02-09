@@ -1,5 +1,5 @@
 {
 	"preset" : "airbnb",
-	"excludeFiles": ["node_modules/**", "coverage/**"],
-  "disallowQuotedKeysInObjects": true
+	"excludeFiles": ["node_modules/**", "coverage/**", "uploads/**"],
+	"disallowQuotedKeysInObjects": true
 }
