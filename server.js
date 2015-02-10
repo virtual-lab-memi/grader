@@ -1,19 +1,21 @@
-var multer = require('multer'),
+var  env = process.env.NODE_ENV || 'development',
+  config = require('./config/config.' + env),
+  logger = require('./logger'),
+  multer = require('multer'),
 	bodyParser = require('body-parser'),
 	express = require('express'),
-  jobManager = require('./lib/job-manager.js'),
 	app = express(),
-  logger = require('./lib/logger.js').Logger,
 	server;
 
-app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: './uploads/'}));
 
 app.post('/api/solutions', function(req, res) {
   var files = req.files,
     data = req.body,
-    invalidInputs = validateInputs(files, data);
+    invalidInputs = validateInputs(files, data),
+    jobManager = require('./lib/job-manager.js');
 
   if (invalidInputs) {
     res.status(400).send({error: invalidInputs, status: 1});
@@ -28,7 +30,7 @@ app.post('/api/solutions', function(req, res) {
 server = app.listen(8888, function() {
   var	host = server.address().address,
 		port = server.address().port;
-  logger.info('Train Me Grader listening at http://%s:%s', host, port)
+  Logger.info('Train Me Grader listening at http://%s:%s', host, port)
 });
 
 exports.app = app;
