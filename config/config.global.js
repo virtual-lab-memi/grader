@@ -11,7 +11,7 @@ config.mongo.db = 'meteor';
 
 //Sandbox
 config.sandbox = {};
-config.sandbox.partialRunCount = 1;
+config.sandbox.partialRunCount = 3;
 config.sandbox.root = '/home/daniela/sandbox';
 config.sandbox.problems = '/home/daniela/uploads';
 config.sandbox.expectedOutputFormat = config.sandbox.problems + '/problemFiles-%s-output';
