@@ -1,6 +1,7 @@
 var  env = process.env.NODE_ENV || 'development',
   config = require('./config/config.' + env),
   logger = require('./logger'),
+  utils = require('./lib/grader/utils'),
   multer = require('multer'),
 	bodyParser = require('body-parser'),
 	express = require('express'),
@@ -25,6 +26,11 @@ app.post('/api/solutions', function(req, res) {
   jobManager.attachJob(data.problemId, data.solutionId, files.solution.path);
 
   res.status(200).send({message: 'Solution submitted', status: 0});
+});
+
+app.get('/api/outputs', function(req, res) {
+  var data = utils.getDiffLines(req.body);
+  res.json(data);
 });
 
 server = app.listen(8888, function() {
