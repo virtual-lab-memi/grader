@@ -2,3 +2,4 @@ syntax: regexp
 node_modules/*
 uploads/*
 coverage/*
+.idea
