@@ -23,7 +23,7 @@ app.post('/api/solutions', function(req, res) {
     return;
   }
 
-  jobManager.attachJob(data.problemId, data.solutionId, files.solution.path);
+  jobManager.attachJob(data.problemId, data.solutionId, files.solution.path, data.eventId);
 
   res.status(200).send({message: 'Solution submitted', status: 0});
 });
@@ -52,5 +52,9 @@ function validateInputs(files, data) {
 
   if (!data.solutionId) {
     return 'No solution id';
+  }
+
+  if (!data.eventId) {
+    return 'No event id';
   }
 }
