@@ -12,6 +12,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: './uploads/'}));
 
+
+//Train me enpoints
+
 app.post('/api/solutions', function(req, res) {
   var files = req.files,
     data = req.body,
@@ -32,6 +35,34 @@ app.get('/api/outputs', function(req, res) {
   var data = utils.getDiffLines(req.body);
   res.json(data);
 });
+
+// Virtual lab 
+
+app.post('/api/compile', function(req, res) {
+  var data = req.body,
+    jobManager = require('./lib/job-manager.js');
+    console.log(jobManager);
+  jobManager.attachSingleJob(data.taskExecution);
+
+  res.status(200).send({message: 'Task submitted successfully.'});
+});
+
+/*
+app.post('/api/run', function(req, res) {
+  var files = req.files,
+    data = req.body,
+    invalidInputs = validateInputs(files, data),
+    jobManager = require('./lib/job-manager.js');
+
+  if (invalidInputs) {
+    res.status(400).send({error: invalidInputs, status: 1});
+    return;
+  }
+
+  jobManager.attachJob(data.problemId, data.solutionId, files.solution.path, data.eventId);
+
+  res.status(200).send({message: 'Solution submitted', status: 0});
+});*/
 
 server = app.listen(8888, function() {
   var	host = server.address().address,
