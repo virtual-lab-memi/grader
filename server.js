@@ -12,46 +12,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: './uploads/'}));
 
-
-//Train me enpoints
-
-app.post('/api/solutions', function(req, res) {
-  var files = req.files,
-    data = req.body,
-    invalidInputs = validateInputs(files, data),
-    jobManager = require('./lib/job-manager.js');
-
-  if (invalidInputs) {
-    res.status(400).send({error: invalidInputs, status: 1});
-    return;
-  }
-
-  jobManager.attachJob(data.problemId, data.solutionId, files.solution.path, data.eventId);
-
-  res.status(200).send({message: 'Solution submitted', status: 0});
-});
-
-app.get('/api/outputs', function(req, res) {
-  var data = utils.getDiffLines(req.body);
-  res.json(data);
-});
-
-// Virtual lab 
+// Virtual lab
 
 app.post('/api/compile', function(req, res) {
   var data = req.body,
-    jobManager = require('./lib/job-manager.js');
-    console.log(jobManager);
-  jobManager.attachSingleJob(data.taskExecution);
-
-  res.status(200).send({message: 'Task submitted successfully.'});
-});
-
-/*
-app.post('/api/run', function(req, res) {
-  var files = req.files,
-    data = req.body,
-    invalidInputs = validateInputs(files, data),
+    invalidInputs = validateInputs(data),
     jobManager = require('./lib/job-manager.js');
 
   if (invalidInputs) {
@@ -59,10 +24,10 @@ app.post('/api/run', function(req, res) {
     return;
   }
 
-  jobManager.attachJob(data.problemId, data.solutionId, files.solution.path, data.eventId);
+  jobManager.attachJob(data.taskExecution);
 
-  res.status(200).send({message: 'Solution submitted', status: 0});
-});*/
+  res.status(200).send({message: 'Task submitted successfully.'});
+});
 
 server = app.listen(8888, function() {
   var	host = server.address().address,
@@ -72,20 +37,8 @@ server = app.listen(8888, function() {
 
 exports.app = app;
 
-function validateInputs(files, data) {
-  if (!files.solution) {
-    return 'No solution file';
-  }
-
-  if (!data.problemId) {
-    return 'No problem id';
-  }
-
-  if (!data.solutionId) {
-    return 'No solution id';
-  }
-
-  if (!data.eventId) {
-    return 'No event id';
+function validateInputs(data) {
+  if (!data.taskExecution) {
+    return 'No task execution id';
   }
 }
