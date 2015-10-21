@@ -12,8 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: './uploads/'}));
 
-// Virtual lab
-
 app.post('/api/compile', function(req, res) {
   var data = req.body,
     invalidInputs = validateInputs(data),
@@ -25,6 +23,21 @@ app.post('/api/compile', function(req, res) {
   }
 
   jobManager.attachJob(data.taskExecution);
+
+  res.status(200).send({message: 'Task submitted successfully.'});
+});
+
+app.post('/api/run', function(req, res) {
+  var data = req.body,
+      invalidInputs = validateInputs(data),
+      jobManager = require('./lib/job-manager.js');
+
+  if (invalidInputs) {
+    res.status(400).send({error: invalidInputs, status: 1});
+    return;
+  }
+
+  jobManager.attachJob(data.taskExecution, true);
 
   res.status(200).send({message: 'Task submitted successfully.'});
 });
