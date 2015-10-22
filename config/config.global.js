@@ -12,7 +12,7 @@ config.mongo.db = 'meteor';
 //Sandbox
 config.sandbox = {};
 config.sandbox.partialRunCount = 1;
-config.sandbox.root = '/home/dann/train-me/train-me-sandbox/output-data';
+config.sandbox.root = '/home/dann/train-me/train-me-sandbox/output-data/';
 config.sandbox.problems = '/home/dann/uploads';
 config.sandbox.expectedOutputFormat = config.sandbox.problems + '/problemFiles-%s-output';
 config.output = {};
