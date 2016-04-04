@@ -12,8 +12,8 @@ config.mongo.db = 'meteor';
 //Sandbox
 config.sandbox = {};
 config.sandbox.partialRunCount = 1;
-config.sandbox.root = '/home/dann/memi/sandbox/output-data/';
-config.sandbox.problems = '/home/dann/memi/editor/.uploads/';
+config.sandbox.root = '/home/memi/sandbox/output-data/';
+config.sandbox.problems = '/home/memi/editor/.uploads/';
 config.sandbox.expectedOutputFormat = config.sandbox.problems + '/problemFiles-%s-output';
 config.output = {};
 config.output.error = config.sandbox.root + '/error.log';
